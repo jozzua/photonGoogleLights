@@ -1,0 +1,381 @@
+// This #include statement was automatically added by the Particle IDE.
+#include <neopixel.h>
+
+// This #include statement was automatically added by the Particle IDE.
+#include "neopixel/neopixel.h"
+#include "application.h"
+//#include "neopixel/neopixel.h" // use for Build IDE
+// #include "neopixel.h" // use for local build
+
+
+// IMPORTANT: Set pixel COUNT, PIN and TYPE
+#define PIXEL_PIN1 D4
+#define PIXEL_PIN2 D5 
+#define PIXEL_PIN3 D6
+#define PIXEL_PIN4 D3
+
+#define PIXEL_COUNT1 300
+#define PIXEL_COUNT2 300
+#define PIXEL_COUNT3 114
+#define PIXEL_COUNT4 300
+
+#define PIXEL_TYPE1 WS2812B
+#define PIXEL_TYPE2 WS2812B
+#define PIXEL_TYPE3 WS2812B
+#define PIXEL_TYPE4 WS2812B
+
+#define BRIGHTNESS 255 // 0 - 255
+
+Adafruit_NeoPixel strip1 = Adafruit_NeoPixel(PIXEL_COUNT1, PIXEL_PIN1, PIXEL_TYPE1);
+Adafruit_NeoPixel strip2 = Adafruit_NeoPixel(PIXEL_COUNT2, PIXEL_PIN2, PIXEL_TYPE2);
+Adafruit_NeoPixel strip3 = Adafruit_NeoPixel(PIXEL_COUNT3, PIXEL_PIN3, PIXEL_TYPE3);
+Adafruit_NeoPixel strip4 = Adafruit_NeoPixel(PIXEL_COUNT4, PIXEL_PIN4, PIXEL_TYPE4);
+
+
+
+int x,y,R,G,B,r,g,b,limit,r1,g1,b1;
+
+
+void setup() {
+
+  strip1.setBrightness(BRIGHTNESS);
+  strip2.setBrightness(BRIGHTNESS);    
+  strip3.setBrightness(BRIGHTNESS);
+  strip4.setBrightness(BRIGHTNESS);
+
+  Particle.function("strip",ledToggle);
+
+  strip1.begin();
+  strip2.begin();
+  strip3.begin();
+  strip4.begin();
+
+  strip1.show(); // Initialize all pixels to 'off'
+  strip2.show(); // Initialize all pixels to 'off'
+  strip3.show(); // Initialize all pixels to 'off'
+  strip4.show(); // Initialize all pixels to 'off'
+
+}
+
+void loop() {
+
+}
+
+
+int ledToggle(String command) {
+  /* Particle.functions always take a string as an argument and return an integer.
+     Since we can pass a string, it means that we can give the program commands on how the function should be used.
+     In this case, telling the function "on" will turn the LED on and telling it "off" will turn the LED off.
+     Then, the function returns a value to us to let us know what happened.
+     In this case, it will return 1 for the LEDs turning on, 0 for the LEDs turning off,
+     and -1 if we received a totally bogus command that didn't do anything to the LEDs.
+   */
+
+  if (command=="red") {
+
+    //        R=219;
+    //        G=50;
+    //        B=54;
+
+    R=255;
+    G=0;
+    B=0;
+
+    set_values(); //value comparison for gradual color shift
+    changeColor();
+    return 2;
+
+  }
+  if (command=="blue") {
+
+    //        R=72;
+    //        G=133;
+    //        B=237;
+
+    R=0;
+    G=0;
+    B=255;
+
+    set_values();
+    changeColor();
+    return 1;
+  }
+
+  if (command=="yellow") {
+
+    //        R=244;
+    //        G=194;
+    //        B=13;
+
+    R=255;
+    G=255;
+    B=0;
+
+    set_values();
+    changeColor();
+    return 3;
+  }
+  if (command=="green") {
+
+    //        R=60;
+    //        G=186;
+    //        B=84;
+
+    R=0;
+    G=255;
+    B=0;
+
+    set_values();
+    changeColor();
+    return 4;
+  }
+
+  if (command=="off") {
+
+    R=0;
+    G=0;
+    B=0;
+
+    set_values();
+    changeColor();
+    strip1.clear();
+    strip2.clear();
+    strip3.clear();
+    strip4.clear();
+
+    strip1.show();
+    strip2.show();
+    strip3.show();
+    strip4.show();
+    return 5;
+  }
+
+  if (command=="play") {
+
+    // this will change the color transitions per letter of the word Google
+
+
+    // first change color of G to blue
+
+
+    strip3.setPixelColor(113, 0, 0, 255); 
+    strip3.setPixelColor(112, 0, 0, 255);
+    strip3.setPixelColor(111, 0, 0, 255);
+    strip3.setPixelColor(110, 0, 0, 255);
+    strip3.setPixelColor(109, 0, 0, 255);
+    strip3.setPixelColor(108, 0, 0, 255);
+    strip3.setPixelColor(107, 0, 0, 255);
+    strip3.setPixelColor(106, 0, 0, 255);
+    strip3.setPixelColor(105, 0, 0, 255);
+    strip3.setPixelColor(104, 0, 0, 255);
+    strip3.setPixelColor(103, 0, 0, 255);
+    strip3.setPixelColor(102, 0, 0, 255);
+    strip3.setPixelColor(101, 0, 0, 255); 
+    strip3.setPixelColor(100, 0, 0, 255);
+    strip3.setPixelColor(99, 0, 0, 255);
+    strip3.setPixelColor(98, 0, 0, 255);
+    strip3.setPixelColor(97, 0, 0, 255);
+    strip3.setPixelColor(96, 0, 0, 255);
+    strip3.setPixelColor(95, 0, 0, 255);
+    strip3.setPixelColor(94, 0, 0, 255);
+    strip3.setPixelColor(93, 0, 0, 255);
+    strip3.setPixelColor(92, 0, 0, 255);
+    strip3.setPixelColor(91, 0, 0, 255);
+    strip3.setPixelColor(90, 0, 0, 255);
+    strip3.setPixelColor(89, 0, 0, 255);
+    strip3.setPixelColor(88, 0, 0, 255);
+    strip3.setPixelColor(87, 0, 0, 255);
+    strip3.setPixelColor(86, 0, 0, 255);
+
+    // second change color of O to red
+
+    strip3.setPixelColor(85, 255, 0, 0);
+    strip3.setPixelColor(84, 255, 0, 0);
+    strip3.setPixelColor(83, 255, 0, 0);
+    strip3.setPixelColor(82, 255, 0, 0);
+    strip3.setPixelColor(81, 255, 0, 0);
+    strip3.setPixelColor(80, 255, 0, 0);
+    strip3.setPixelColor(79, 255, 0, 0);
+    strip3.setPixelColor(78, 255, 0, 0);
+    strip3.setPixelColor(77, 255, 0, 0);
+    strip3.setPixelColor(76, 255, 0, 0);
+    strip3.setPixelColor(75, 255, 0, 0);
+    strip3.setPixelColor(74, 255, 0, 0);
+    strip3.setPixelColor(73, 255, 0, 0);
+    strip3.setPixelColor(72, 255, 0, 0);
+    strip3.setPixelColor(71, 255, 0, 0);
+    strip3.setPixelColor(70, 255, 0, 0);
+
+    // third change color of O to yellow
+    strip3.setPixelColor(69, 255, 255, 0);
+    strip3.setPixelColor(68, 255, 255, 0);
+    strip3.setPixelColor(67, 255, 255, 0);
+    strip3.setPixelColor(66, 255, 255, 0);
+    strip3.setPixelColor(65, 255, 255, 0);
+    strip3.setPixelColor(64, 255, 255, 0);
+    strip3.setPixelColor(63, 255, 255, 0);
+    strip3.setPixelColor(62, 255, 255, 0);
+    strip3.setPixelColor(61, 255, 255, 0);
+    strip3.setPixelColor(60, 255, 255, 0);
+    strip3.setPixelColor(59, 255, 255, 0);
+    strip3.setPixelColor(58, 255, 255, 0);
+    strip3.setPixelColor(57, 255, 255, 0);
+    strip3.setPixelColor(56, 255, 255, 0);
+    strip3.setPixelColor(55, 255, 255, 0);
+    strip3.setPixelColor(54, 255, 255, 0);
+    strip3.setPixelColor(53, 255, 255, 0);
+    strip3.setPixelColor(52, 255, 255, 0);
+
+    //  change color of G to blue
+
+
+    strip3.setPixelColor(51, 0, 0, 255);
+    strip3.setPixelColor(50, 0, 0, 255);
+    strip3.setPixelColor(49, 0, 0, 255);
+    strip3.setPixelColor(48, 0, 0, 255);
+    strip3.setPixelColor(47, 0, 0, 255);
+    strip3.setPixelColor(46, 0, 0, 255);
+    strip3.setPixelColor(45, 0or(63, 255, 255, 0);
+        strip3.setPixelColor(62, 255, 25   strip3.setPixelColor(43, 0, 0, 255);
+          strip3.setPixelColor(42, 0, 0, 255);
+          strip3.setPixelColor(41, 0, 0, 255);
+          strip3.setPixelColor(40, 0, 0, 255);
+          strip3.setPixelColor(39, 0, 0, 255);
+          strip3.setPixelColor(38, 00);
+          strip3.setPixelColor(57, 255, 255, 0);
+          st  p3.setPixelColor(56, 255, 255, 0);
+          strip3.setPixelColColor(35, 0, 0, 255);
+          strip3.setPixelColor(34, 0, 0, 255);
+          strip3.setPixelColor(33, 0, 0, 255);
+          strip3.setPixelColor(32, 0, 0, 255);
+          strip3.setPixelColor(31, 0, 0, 255);
+          strip3.setPixelColor(30, 0, 0, 255);
+          strip3.setPixelColor(29, 0, 0, 255);
+          strip3.setPixelColor(28, 0, 0, 255);
+          strip3.setPixelColor(29, 0, 0, 255);
+          strip3.setPixelColor(28, 0, 0, 255);
+          strip3.setPixelColor(27, 0, 0, 255);
+
+          // second change color of L to green
+
+          strip3.setPixelColor(26, 0, 255, 0);
+          strip3.setPixelColor(25, 0, 255, 0);trip3.setPixelColor(42, 0, 0, 255);
+          strip3.setPixelCosetPixelColor(23, 0, 255, 0);
+          strip3.setPixelColor(22, 0, 255, 0);
+          strip3.setPixelColor(21, 0, 255, 0);
+          strip3.setPixelColor(20, 0, 255, 0);
+          strip3.setPixelColor(19, 0, 255, 0);
+          strip3.setPixelColor(18, 0, 255, 0);p3.setPixelColColor(35, 0, 0, 255);
+          strip3.setPixelCo
+
+            strip3.setPixelColor(17, 255, 0, 0);
+          strip3.setPixelColor(16, 255, 0, 0);
+          strip3.setPixelColor(15, 255, 0, 0);
+          strip3.setPixelColor(14, 255, 0, 0);
+          strip3.setPixelColor(13, 255, 0, 0);
+          strip3.setPixelColor(12, 255, 0, 0);
+          strip3.setPixelColor(11, 255,r(29, 0, 0, 255);
+              strip3.setPixelColor(28, 0, 0, 255)strip3.setPixelColor(9, 255, 0, 0);
+              strip3.setPixelColor(8, 255, 0, 0);
+              strip3.setPixelColor(7, 255, 0, 0);
+              rip3.setPixelColor(26, 0, 255, 0);
+              strip3.setPixelColelColor(5, 255, 0, 0);
+              strip3.setPixelColor(4, 255, 0, 0);
+              strip3.setPixelColor(3, 255, 0, 0);
+              strip3.setPixelColor(2, 255, 0, 0);
+              strip3.setPixelColor(1, 255, 0, 0);
+              strip3.setPixelColor(0, 255, 0, 0);
+              strrip3.setPixelColor(19, 0, 255, 0);
+              strip3.setPixelColell
+              R=0;
+              G=0;
+              B=255;
+              set_values();
+              changeColor();
+              delay(1000);
+
+              , 0);
+          strip3.setPixelColor(16, 255, 0, 0);
+          stues();
+          changeColor();
+          delay(1000);
+
+
+
+          R=255;
+          G=255;
+          B=0;
+          set_values();
+          strip3.setPixelColor(12, 255, 0, 0);
+          strip3.setP 
+            elColor(11, 255,r(29, 0, 0, 255);
+                strip3.setPixelColo;
+                changeColor();
+                delay(1000);
+
+
+
+                R=0;
+                G=255;
+                B=0;
+                set_values();
+                255, 0, 0);
+          rip3.setPixelColor(26, 0, 255, 0);
+          st   
+
+            R=255;
+          G=0;
+          B=0;
+          set_values();
+          changeColor();
+          delay(1000);
+          strip3.setPixelColor(2, 255, 0, 0);
+          strip3.setrnxelColor(1, 255, 0, 0);
+          strip3.setPixelColor(0, 255, {
+
+              r = map(y, 0, limit, r1, R);
+              g = map(yp3.setPixelColell
+                  R=0;
+                  G=0;
+                  B=255;
+                  for (x=0;x<300;x++){
+                  strip1.setPixelColor(x,r,g,b);
+                  strip2.setPixelColor(x,r,g,b);
+                  strip4.setPixelC0);
+              stues();
+              changeColor();
+              delay(100 strip1.show();
+                  strip2.show();
+                  strip4.show();
+                  }
+                  }
+
+
+
+
+                  int set_values(){
+
+                  int c1,c2,c3;
+
+                  r1 = r;
+                  g1 = g;
+                  b1 = b;
+
+                  c1 = R-r1;
+                  c2 = G-g1;
+                  c3 = B-b1;
+
+                  if (c1<0) c1 = c1*(-1);
+                  if (c2<0) c     
+
+
+                    R=0;
+                  G=255;
+                  B=0;
+                  &&(c1>c3)) limit = c1/4;
+                  if ((c2>c1)&&(c2>c3)) limit = c2/4;
+                  0);
+                  st   
+
+                    R=255;
+                  })})})))}}
